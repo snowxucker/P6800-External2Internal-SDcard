@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>P6800-external2internal-sdcard</title>
+  <meta name="description" content="สำหรับ galaxy tab7.7 และรุ่นอื่นๆ ก็สามารถใช้ได้นะครับ มีอยู่2วิธี 1.วิธีแรก ใช้แอพเอาครับ แต่ต้องรูทเครื่องก่อน ให้ไปโหลด แอพ Root external2internal ในเพลย์สโตร์มานะครับ วิธีนี้เวลารีบูทจะกลับเป็นเหมือนเดิม อาจจะมีปัญหากับแอพไหม่ๆที่ติดตั้ง 2.ส่วนวิธีที2ของผมคือเขียนสคริปเอาครับ  -ก่อนอื่นให้ไปโหลด Smanager มาลงไว้ -่ไปที่/system/etc/init.d/ -แล้วสร้างสคริป #!/system/bin/sh #extsd2internalsd is a modification that allows to switch internal sd to external sd and viceversa. With this you can use default internal sd only for app storage #and the external sd to store all apps resource and all others stuff. The resut is a very big increase of installable apps on GalaxyTab7.7 #All credits to Snowxucker of xda forum for the idea and script and to GalaxyTAB7.7 for the cmw zip.  #xda thread url at sleep 10 mount -o remount,rw / mount -t vfat -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard mount -t vfat -o umask=0000 /dev/block/vold/179:25 /storage/sdcard0 sleep 30 mount -o bind /data/media /mnt/emmc mount -o bind /data/media /storage/sdcard chmod 777 /mnt/emmc sleep 30 mkdir -p /mnt/emmc /external_sd/sdcard1 touch /mnt/extSdCard/external_sd/ sleep 10 mount -o bind /storage/sdcard0 /mnt/emmc/storage/sdcard1 exit หรือ #!/system/bin/sh sleep 50 mount -o remount,rw / mkdir -p /data/internal_sd mount -o bind /mnt/sdcard /data/internal_sd mount -t null -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard chmod 777 /data/internal_sd mkdir -p /storage/HDD  mount -o bind /data/media /mnt/sdcard mount -t exfat -o umask=0000 /dev/block/vold/179:26 /mnt/sdcard/extsd2 mount -o bind /mnt/sdcard/extsd2 /storage/sdcard0 chmod 777 /data/extsd2 /storage/sdcard1 exit อันแรกจะมองไม่เห็น sdcardภายในนะครับ อันที่2จะมองเห็น sdcardที่ย้ายไปในตัวเครื่อง -จากนั้นก็ Run สคริป ติ้ก su และ run onboot เพื่อที่ไม่ให้สลับกลับเวลารีบูทครับ -จากนั้นก็รันสคริป ครับ  รอประมาน10วินาทีก็จะเห็นว่าเมมภายนอกสลับกับเมมภายในแล้ว  -ให้ไปเช็คดูที่settingครับ เครดิตจาก xdaนะครับ ผมไปเอาสคริป ที่เขาเขียนไว้มาต่อยอด EXT4 คืออะไร http://ext48nvvtwi.blogspot.com/ ext2intsd       ////     ">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">P6800-external2internal-sdcard</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">สำหรับ galaxy tab7.7 และรุ่นอื่นๆ ก็สามารถใช้ได้นะครับ มีอยู่2วิธี 1.วิธีแรก ใช้แอพเอาครับ แต่ต้องรูทเครื่องก่อน ให้ไปโหลด แอพ Root external2internal ในเพลย์สโตร์มานะครับ วิธีนี้เวลารีบูทจะกลับเป็นเหมือนเดิม อาจจะมีปัญหากับแอพไหม่ๆที่ติดตั้ง 2.ส่วนวิธีที2ของผมคือเขียนสคริปเอาครับ  -ก่อนอื่นให้ไปโหลด Smanager มาลงไว้ -่ไปที่/system/etc/init.d/ -แล้วสร้างสคริป #!/system/bin/sh #extsd2internalsd is a modification that allows to switch internal sd to external sd and viceversa. With this you can use default internal sd only for app storage #and the external sd to store all apps resource and all others stuff. The resut is a very big increase of installable apps on GalaxyTab7.7 #All credits to Snowxucker of xda forum for the idea and script and to GalaxyTAB7.7 for the cmw zip.  #xda thread url at sleep 10 mount -o remount,rw / mount -t vfat -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard mount -t vfat -o umask=0000 /dev/block/vold/179:25 /storage/sdcard0 sleep 30 mount -o bind /data/media /mnt/emmc mount -o bind /data/media /storage/sdcard chmod 777 /mnt/emmc sleep 30 mkdir -p /mnt/emmc /external_sd/sdcard1 touch /mnt/extSdCard/external_sd/ sleep 10 mount -o bind /storage/sdcard0 /mnt/emmc/storage/sdcard1 exit หรือ #!/system/bin/sh sleep 50 mount -o remount,rw / mkdir -p /data/internal_sd mount -o bind /mnt/sdcard /data/internal_sd mount -t null -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard chmod 777 /data/internal_sd mkdir -p /storage/HDD  mount -o bind /data/media /mnt/sdcard mount -t exfat -o umask=0000 /dev/block/vold/179:26 /mnt/sdcard/extsd2 mount -o bind /mnt/sdcard/extsd2 /storage/sdcard0 chmod 777 /data/extsd2 /storage/sdcard1 exit อันแรกจะมองไม่เห็น sdcardภายในนะครับ อันที่2จะมองเห็น sdcardที่ย้ายไปในตัวเครื่อง -จากนั้นก็ Run สคริป ติ้ก su และ run onboot เพื่อที่ไม่ให้สลับกลับเวลารีบูทครับ -จากนั้นก็รันสคริป ครับ  รอประมาน10วินาทีก็จะเห็นว่าเมมภายนอกสลับกับเมมภายในแล้ว  -ให้ไปเช็คดูที่settingครับ เครดิตจาก xdaนะครับ ผมไปเอาสคริป ที่เขาเขียนไว้มาต่อยอด EXT4 คืออะไร http://ext48nvvtwi.blogspot.com/ ext2intsd       ////     </p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/snowxucker/P6800-External2Internal-SDcard/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/snowxucker/P6800-External2Internal-SDcard/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/snowxucker/P6800-External2Internal-SDcard" class="code">View P6800-external2internal-sdcard on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>P6800-External2Internal-SDcard</h1>
+
+<p>สำหรับ galaxy tab7.7 และรุ่นอื่นๆ ก็สามารถใช้ได้นะครับ มีอยู่2วิธี 1.วิธีแรก ใช้แอพเอาครับ แต่ต้องรูทเครื่องก่อน ให้ไปโหลด แอพ Root external2internal ในเพลย์สโตร์มานะครับ วิธีนี้เวลารีบูทจะกลับเป็นเหมือนเดิม อาจจะมีปัญหากับแอพไหม่ๆที่ติดตั้ง 2.ส่วนวิธีที2ของผมคือเขียนสคริปเอาครับ -ก่อนอื่นให้ไปโหลด Smanager มาลงไว้ -่ไปที่/system/etc/init.d/ -แล้วสร้างสคริป #!/system/bin/sh #extsd2internalsd is a modification that allows to switch internal sd to external sd and viceversa. With this you can use default internal sd only for app storage #and the external sd to store all apps resource and all others stuff. The resut is a very big increase of installable apps on GalaxyTab7.7 #All credits to Snowxucker of xda forum for the idea and script and to GalaxyTAB7.7 for the cmw zip.  #xda thread url at sleep 10 mount -o remount,rw / mount -t vfat -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard mount -t vfat -o umask=0000 /dev/block/vold/179:25 /storage/sdcard0 sleep 30 mount -o bind /data/media /mnt/emmc mount -o bind /data/media /storage/sdcard chmod 777 /mnt/emmc sleep 30 mkdir -p /mnt/emmc /external_sd/sdcard1 touch /mnt/extSdCard/external_sd/ sleep 10 mount -o bind /storage/sdcard0 /mnt/emmc/storage/sdcard1 exit หรือ #!/system/bin/sh sleep 50 mount -o remount,rw / mkdir -p /data/internal_sd mount -o bind /mnt/sdcard /data/internal_sd mount -t null -o umask=0000 /dev/block/vold/179:24 /mnt/sdcard chmod 777 /data/internal_sd mkdir -p /storage/HDD  mount -o bind /data/media /mnt/sdcard mount -t exfat -o umask=0000 /dev/block/vold/179:26 /mnt/sdcard/extsd2 mount -o bind /mnt/sdcard/extsd2 /storage/sdcard0 chmod 777 /data/extsd2 /storage/sdcard1 exit อันแรกจะมองไม่เห็น sdcardภายในนะครับ อันที่2จะมองเห็น sdcardที่ย้ายไปในตัวเครื่อง -จากนั้นก็ Run สคริป ติ้ก su และ run onboot เพื่อที่ไม่ให้สลับกลับเวลารีบูทครับ -จากนั้นก็รันสคริป ครับ  รอประมาน10วินาทีก็จะเห็นว่าเมมภายนอกสลับกับเมมภายในแล้ว  -ให้ไปเช็คดูที่settingครับ เครดิตจาก xdaนะครับ ผมไปเอาสคริป ที่เขาเขียนไว้มาต่อยอด EXT4 คืออะไร <a href="http://ext48nvvtwi.blogspot.com/">http://ext48nvvtwi.blogspot.com/</a> ext2intsd        </p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/snowxucker" class="avatar"><img src="https://secure.gravatar.com/avatar/b498ff6cb9b32e08e8a405442f6427d6?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/snowxucker">snowxucker</a> maintains <a href="https://github.com/snowxucker/P6800-External2Internal-SDcard">P6800-external2internal-sdcard</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/snowxucker/P6800-External2Internal-SDcard/tarball/master" class="tar">tar</a><a href="https://github.com/snowxucker/P6800-External2Internal-SDcard/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("snowxucker");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+</body>
+</html>
